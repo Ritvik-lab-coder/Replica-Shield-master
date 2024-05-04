@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replica Shield Desktop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@800&family=Barlow+Semi+Condensed:wght@500;600&family=Karla:wght@400;700&family=Lato:wght@900&family=Poppins:wght@400;500&family=Roboto:ital@1&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: rgb(2, 0, 36);
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(111, 212, 218, 1) 0%, rgba(0, 255, 136, 1) 100%);
+        }
+
+        .container {
+            width: 96%;
+            margin: auto;
+            margin-top: 0;
+        }
+
+        .replica-shield-icons-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .replica-shield-title {
+            margin-top: 1em;
+            margin-bottom: 1em;
+            text-align: center;
+            color: #592687;
+            font-size: 2em;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .table-data {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .table-row {
+            text-align: center;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            background-color: #95A5A6;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="replica-shield-header">
+            <h1 class="replica-shield-title">REPLICA SHIELD</h1>
+        </div>
+        <table>
+            <tr class="table-row">
+                <th class="table-header">Cluster</th>
+                <th class="table-header">Projects</th>
+            </tr>
+            {% for cluster_info in cluster_data %}
+            <tr class="table-row">
+                <td class="table-data">{{ cluster_info.cluster_label }}</td>
+                <td class="table-data">
+                    <ul>
+                        {% for project_title in cluster_info.projects %}
+                        <li>{{ project_title }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>

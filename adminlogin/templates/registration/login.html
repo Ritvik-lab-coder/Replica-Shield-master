@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Replica Shield Login</title>
+  <link rel="stylesheet" href="AdminLoginPage.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@800&family=Barlow+Semi+Condensed:wght@500;600&family=Karla:wght@400;700&family=Lato:wght@900&family=Poppins:wght@400;500&family=Roboto:ital@1&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: rgb(2, 0, 36);
+      background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(111, 212, 218, 1) 0%, rgba(0, 255, 136, 1) 100%);
+    }
+
+    input {
+      display: flex;
+      width: 100%;
+    }
+
+    .replica-shield-login-container {
+      text-align: center;
+      width: 100%;
+      max-width: 300px;
+      padding: 2em;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .replica-shield-title {
+      color: #592687;
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+
+    .form-label {
+      display: flex;
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+      font-size: 1em;
+      color: #592687;
+    }
+
+    .input-field {
+      height: 2em;
+      border: 1px solid #9c6da5;
+      border-radius: 5px;
+      padding: 0 1em;
+      width: 100%;
+    }
+
+    .login-button {
+      height: 2em;
+      background-color: #592687;
+      border: none;
+      border-radius: 5px;
+      color: #ffffff;
+      cursor: pointer;
+      width: 30%;
+      margin-top: 1em;
+    }
+
+    .login-button:hover {
+      background-color: #7a3ec3;
+      transform: scale(1.05);
+      transition-duration: 0.3s;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .replica-shield-title {
+        font-size: 1.2em;
+      }
+
+      .form-label {
+        font-size: 0.9em;
+      }
+
+      .input-field,
+      .login-button {
+        height: 1.8em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="replica-shield-login-container">
+    <h1 class="replica-shield-title">REPLICA SHIELD</h1>
+    <form class="replica-shield-login-form" method="post">
+      {% csrf_token %}
+      <label for="username" class="form-label">Username</label>
+      {{form.username}}
+
+      <label for="password" class="form-label">Password</label>
+      {{form.password}}
+
+      <button type="submit" class="login-button">Login</button>
+    </form>
+  </div>
+</body>
+
+</html>
