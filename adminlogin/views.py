@@ -3,6 +3,7 @@ from responses.models import Response
 from django.contrib.auth.decorators import login_required
 from . import utils
 from collections import defaultdict
+from sklearn.cluster import DBSCAN
 
 @login_required
 def profile_view(request):
@@ -20,10 +21,10 @@ def database_view(request):
 @login_required
 def gen_duplicates(request):
 
-    documents = Response.objects.values_list('abstract', flat=True)
+    abstract_list = Response.objects.values_list('abstract', flat=True)
     
-    doc_vec = utils.create_tfidf_vectors(documents)
-    doc_filename_pairs = list(zip(range(len(documents)), doc_vec))
+    proj_vec = utils.create_tfidf_vectors(abstract_list)
+    doc_filename_pairs = list(zip(range(len(abstract_list)), proj_vec))
 
     plagiarism_results = utils.find_similarity(doc_filename_pairs)
 
@@ -34,7 +35,7 @@ def gen_duplicates(request):
 
     epsilon = 0.5 
     min_samples = 1  
-    dbscan = utils.DBSCAN(eps=epsilon, min_samples=min_samples, metric='precomputed')
+    dbscan = DBSCAN(eps=epsilon, min_samples=min_samples, metric='precomputed')
     clusters = dbscan.fit_predict(distance_matrix)
 
     titles = Response.objects.values_list('title', flat=True)

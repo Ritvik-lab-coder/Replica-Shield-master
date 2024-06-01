@@ -1,4 +1,3 @@
-import os
 import re
 import nltk
 nltk.download('punkt')
@@ -8,7 +7,6 @@ from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np 
-from sklearn.cluster import DBSCAN
 
 
 def preproc(txt):
@@ -30,17 +28,16 @@ def find_similarity(doc_filename_pairs):
 
     plagiarism_results = set() 
 
-    for student_a_file, student_a_vec in doc_filename_pairs:
+    for proj_a, proj_a_vec in doc_filename_pairs:
         remaining_pairs = doc_filename_pairs.copy()
-        current_index = remaining_pairs.index((student_a_file, student_a_vec))
+        current_index = remaining_pairs.index((proj_a, proj_a_vec))
         del remaining_pairs[current_index]
-        for student_b_file, student_b_vec in remaining_pairs:
-            similarity_score = cosine_similarity([student_a_vec, student_b_vec])[0][1]
-            sorted_filenames = (student_a_file, student_b_file)
-            plagiarism_result = (sorted_filenames[0], sorted_filenames[1], similarity_score)
+        for proj_b, proj_b_vec in remaining_pairs:
+            similarity_score = cosine_similarity([proj_a_vec, proj_b_vec])[0][1]
+            ordered_proj = (proj_a, proj_b)
+            plagiarism_result = (ordered_proj[0], ordered_proj[1], similarity_score)
             plagiarism_results.add(plagiarism_result)
     return plagiarism_results
-
 
 
 def create_similarity_matrix(plagiarism_results, files):
